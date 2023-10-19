@@ -1,0 +1,38 @@
+import PySimpleGUI as sg
+
+layout = [
+    [sg.Text('Insira a primeira nota:'), sg.InputText(key='nota1')],
+    [sg.Text('Insira a segunda nota:'), sg.InputText(key='nota2')],
+    [sg.Text('Insira a terceira nota:'), sg.InputText(key='nota3')],
+    [sg.Text('Insira a quarta nota:'), sg.InputText(key='nota4')],
+    [sg.Text('')],
+    [sg.Button('Calcular Média')],
+    [sg.Text(size=(10, 2), key='resultado')],
+    [sg.Text(size=(10, 2), key='status')],
+]
+
+window = sg.Window('Calculadora de Média', layout)
+
+while True:
+    event, values = window.read()
+
+    if event == sg.WINDOW_CLOSED:
+        break
+
+    if event == 'Calcular Média':
+        nota1 = float(values['nota1'])
+        nota2 = float(values['nota2'])
+        nota3 = float(values['nota3'])
+        nota4 = float(values['nota4'])
+
+        soma = nota1 + nota2 + nota3 + nota4
+        media_final = soma / 4
+
+        window['resultado'].update(f'Média Final: {media_final:.2f}')
+
+        if media_final >= 6:
+            window['status'].update('Você foi aprovado!')
+        else:
+            window['status'].update('Você foi reprovado')
+
+window.close()
